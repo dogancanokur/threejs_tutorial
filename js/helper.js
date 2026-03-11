@@ -24,17 +24,17 @@ export function gridHelper() {
   );
   //   scene.add(arrowHelper);
 
-  const secondCamera = new THREE.PerspectiveCamera(
-    60,
-    window.innerWidth / window.innerHeight,
-    10,
-    100,
-  );
-  secondCamera.position.x = -5;
-  secondCamera.position.y = -5;
-  secondCamera.position.z = -5;
-  const cameraHelper = new THREE.CameraHelper(secondCamera);
-//   scene.add(cameraHelper);
+  //   const secondCamera = new THREE.PerspectiveCamera(
+  //     60,
+  //     window.innerWidth / window.innerHeight,
+  //     10,
+  //     100,
+  //   );
+  //   secondCamera.position.x = -5;
+  //   secondCamera.position.y = -5;
+  //   secondCamera.position.z = -5;
+  //   const cameraHelper = new THREE.CameraHelper(secondCamera);
+  //   scene.add(cameraHelper);
 }
 
 export function guiInit() {

@@ -5,12 +5,25 @@ import * as THREE from "three";
 /**
  * Box geometri oluşturmak için bir fonksiyon
  */
-export function createBoxGeometry(meshName, width, height, depth, color, gui) {
+export function createBoxGeometry(
+  meshName,
+  width,
+  height,
+  depth,
+  color,
+  x = 0,
+  y = 0,
+  z = 0,
+  gui,
+) {
   let boxGeometry = new THREE.BoxGeometry(width, height, depth);
   // kutunun yüzeyini yeşil renkte göstermek için bir malzeme oluşturuyoruz
-  let material = new THREE.MeshBasicMaterial({ color });
+  // !!! MeshBasicMaterial, ışıklandırmadan etkilenmeyen basit bir malzemedir
+  // !!! o yüzden MeshStandardMaterial kullanarak ışıklandırmadan etkilenmesini sağlayalım
+  let material = new THREE.MeshStandardMaterial({ color });
   // geometri ve malzemeyi birleştirerek bir mesh oluşturuyoruz
   let mesh = new THREE.Mesh(boxGeometry, material);
+  mesh.position.set(x, y, z);
   mesh.name = meshName;
 
   window.scene.add(mesh);
@@ -29,9 +42,11 @@ function guiConfig(meshName, gui) {
   let mesh = scene.getObjectByName(meshName);
   const gbf = gui.addFolder(meshName + " Properties");
   // renk değiştirme için bir color picker ekleyelim
-  gbf.addColor({ color: "#" + mesh.material.color.getHexString() }, "color").onChange((value) => {
-    mesh.material.color.set(value);
-  });
+  gbf
+    .addColor({ color: "#" + mesh.material.color.getHexString() }, "color")
+    .onChange((value) => {
+      mesh.material.color.set(value);
+    });
 
   const gbp = gbf.addFolder(meshName + " Position");
 
