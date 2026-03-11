@@ -26,7 +26,7 @@ function createScene() {
 
   // sahneye bir kutu ekleyelim ve sahneye ekleyelim
   scene.add(createBoxGeometry("green box", 1, 1, 2, 0x00ff00));
-  scene.add(createBoxGeometry("red box", 2, 1, 1, 0xff0000));
+  scene.add(createBoxGeometry("red box", 0.1, 3, 0.2, 0xff0000));
 
   // ** bir posizyon vermezsek, varsayılan olarak (0, 0, 0) noktasında oluşturulur
 
@@ -71,23 +71,36 @@ function render() {
 
 function gui() {
   // GUI setup after adding the geometry
-  let gui = new GUI();
-  gui.add(scene.getObjectByName("green box").position, "x", -5, 5);
-  gui.add(scene.getObjectByName("green box").position, "y", -5, 5);
-  gui.add(scene.getObjectByName("green box").position, "z", -5, 5);
+  const gui = new GUI();
 
-  gui.add(scene.getObjectByName("red box").position, "x", -5, 5, 0.5);
-  gui.add(scene.getObjectByName("red box").position, "y", -5, 5, 0.5);
-  gui.add(scene.getObjectByName("red box").position, "z", -5, 5, 0.5);
+  greenBoxConfig();
 
-  gui.add(camera.position, "x", -5, 5);
-  gui.add(camera.position, "y", -5, 5);
-  gui.add(camera.position, "z", -5, 5);
+  cameraConfig();
 
-  // renk değiştirme için bir color picker ekleyelim
-  gui.addColor({ color: "#00ff00" }, "color").onChange((value) => {
-    scene.getObjectByName("green box").material.color.set(value);
-  });
+  function cameraConfig() {
+    const cameraFolder = gui.addFolder("Camera Position");
+    cameraFolder.add(camera.position, "x", -5, 5);
+    cameraFolder.add(camera.position, "y", -5, 5);
+    cameraFolder.add(camera.position, "z", -5, 5);
+  }
+
+  function greenBoxConfig() {
+    const gbf = gui.addFolder("Green Box");
+    // renk değiştirme için bir color picker ekleyelim
+    gbf.addColor({ color: "#00ff00" }, "color").onChange((value) => {
+      scene.getObjectByName("green box").material.color.set(value);
+    });
+
+    const gbp = gbf.addFolder("Green Box Position");
+    gbp.add(scene.getObjectByName("green box").position, "x", -5, 5);
+    gbp.add(scene.getObjectByName("green box").position, "y", -5, 5);
+    gbp.add(scene.getObjectByName("green box").position, "z", -5, 5);
+
+    const gbr = gbf.addFolder("Green Box Rotation");
+    gbr.add(scene.getObjectByName("green box").rotation, "x", -5, 5);
+    gbr.add(scene.getObjectByName("green box").rotation, "y", -5, 5);
+    gbr.add(scene.getObjectByName("green box").rotation, "z", -5, 5);
+  }
 }
 
 /**
