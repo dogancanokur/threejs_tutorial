@@ -5,7 +5,7 @@ import * as THREE from "three";
 /**
  * Box geometri oluşturmak için bir fonksiyon
  */
-export function createBoxGeometry(
+export default function createBoxGeometry(
   meshName,
   width,
   height,
@@ -14,6 +14,8 @@ export function createBoxGeometry(
   x = 0,
   y = 0,
   z = 0,
+  castShadow = false,
+  receiveShadow = false,
   gui,
 ) {
   let boxGeometry = new THREE.BoxGeometry(width, height, depth);
@@ -25,6 +27,8 @@ export function createBoxGeometry(
   let mesh = new THREE.Mesh(boxGeometry, material);
   mesh.position.set(x, y, z);
   mesh.name = meshName;
+  mesh.castShadow = castShadow;
+  mesh.receiveShadow = receiveShadow;
 
   window.scene.add(mesh);
   if (gui) {
@@ -40,22 +44,22 @@ function guiConfig(meshName, gui) {
     return;
   }
   let mesh = scene.getObjectByName(meshName);
-  const gbf = gui.addFolder(meshName + " Properties");
+  const propertiesFolder = gui.addFolder(meshName + " Properties");
+
   // renk değiştirme için bir color picker ekleyelim
-  gbf
+  propertiesFolder
     .addColor({ color: "#" + mesh.material.color.getHexString() }, "color")
     .onChange((value) => {
       mesh.material.color.set(value);
     });
 
-  const gbp = gbf.addFolder(meshName + " Position");
+  const positionFolder = propertiesFolder.addFolder(meshName + " Position");
+  positionFolder.add(mesh.position, "x", -5, 5);
+  positionFolder.add(mesh.position, "y", -5, 5);
+  positionFolder.add(mesh.position, "z", -5, 5);
 
-  gbp.add(mesh.position, "x", -5, 5);
-  gbp.add(mesh.position, "y", -5, 5);
-  gbp.add(mesh.position, "z", -5, 5);
-
-  const gbr = gbf.addFolder(meshName + " Rotation");
-  gbr.add(mesh.rotation, "x", -5, 5);
-  gbr.add(mesh.rotation, "y", -5, 5);
-  gbr.add(mesh.rotation, "z", -5, 5);
+  const rotationFolder = propertiesFolder.addFolder(meshName + " Rotation");
+  rotationFolder.add(mesh.rotation, "x", -5, 5);
+  rotationFolder.add(mesh.rotation, "y", -5, 5);
+  rotationFolder.add(mesh.rotation, "z", -5, 5);
 }

@@ -48,9 +48,9 @@ export function guiInit() {
     THREE.warn(
       "Camera position controls added to GUI." + camera.position.toArray(),
     );
-    cameraFolder.add(camera.position, "x", -5, 5);
-    cameraFolder.add(camera.position, "y", -5, 5);
-    cameraFolder.add(camera.position, "z", -5, 5);
+    cameraFolder.add(camera.position, "x", -10, 10);
+    cameraFolder.add(camera.position, "y", -10, 10);
+    cameraFolder.add(camera.position, "z", -10, 10);
   }
   return gui;
 }
