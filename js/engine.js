@@ -37,7 +37,7 @@ function createScene() {
   datGui = datGuiInit();
 
   // sahneye bir kutu ekleyelim ve sahneye ekleyelim
-  scene.add(
+/*   scene.add(
     createBoxGeometry(
       "green box",
       1,
@@ -51,7 +51,7 @@ function createScene() {
       true,
       datGui,
     ),
-  );
+  ); */
   scene.add(
     createBoxGeometry("floor", 7, 1, 7, 0xf0000a, 0, -0.5, 0, true, true),
   );
@@ -65,11 +65,11 @@ function createScene() {
 
   gridHelper();
 
-  // createGLTFModel(
-  //   "models/airbus/scene.gltf",
-  //   "models/airbus/textures/material02_baseColor.jpg",
-  //   "airbus1",
-  // );
+  createGLTFModel(
+    "models/airbus/scene.gltf",
+    "models/airbus/textures/material02_baseColor.jpg",
+    "airbus1",
+  );
   render();
 }
 
